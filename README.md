@@ -6,6 +6,7 @@ CloudFrontからシンプルなHTMLを配信するコンポーネント。
     - certificate
     - bucket_with_logging
     - bucket_policy_origin_access_identity
+    - terraform-logging-bucket (https://github.com/officer/terraform-logging-bucket)
 
 ## cloudfront-s3origin
 S3をバックにしたCloudFront。
@@ -19,4 +20,7 @@ ACMから発行する証明書
 ## bucket_policy_origin_access_identity
 Origin Access Identity向けのS3バケットポリシー
 
+## terraform-logging-bucket
+汎用ログ記録用バケット。
+    https://github.com/officer/terraform-logging-bucket
 

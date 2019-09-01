@@ -9,6 +9,13 @@ variable "s3_domain" {
   type = "string"
 }
 
+variable "s3_region" {
+  description = "The region s3 logging bucket belongs to "
+  type = "string"
+  default = "us-east-1"
+}
+
+
 variable "origin_access_identity" {
   description = "Origin Access Identity Object"
   type = "map"

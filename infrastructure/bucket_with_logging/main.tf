@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "bucket" {
   bucket_prefix = "${var.namespace}"
   region = "${var.region}"
   logging {
-      target_bucket = "${aws_s3_bucket.logging_bucket.id}"
+      target_bucket = "${module.logging_bucket.bucket.id}"
   }
 
   cors_rule {
@@ -15,14 +15,13 @@ resource "aws_s3_bucket" "bucket" {
   tags = "${var.tags}"
   force_destroy = true
 
-  depends_on = ["aws_s3_bucket.logging_bucket"]
 }
 
-resource "aws_s3_bucket" "logging_bucket" {
-  region        = "${var.region}"
-  bucket_prefix = "${var.namespace}-logging-"
-  acl           = "log-delivery-write"
-  force_destroy = true
+module "logging_bucket" {
+  source    = "github.com/officer/terraform-logging-bucket.git"
+  region    = "${var.region}"
+  namespace = "${var.namespace}"
+  tags      = "${var.tags}"
 }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {

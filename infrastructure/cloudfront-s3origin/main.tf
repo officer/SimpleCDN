@@ -49,7 +49,7 @@ resource "aws_cloudfront_distribution" "distribution" {
 
     logging_config {
       include_cookies = true
-      bucket = "${aws_s3_bucket.access_log_bucket.bucket_domain_name}"
+      bucket = "${module.logging_bucket.bucket.bucket_domain_name}"
     }
 
 }
@@ -68,7 +68,9 @@ resource "aws_route53_record" "record" {
 
 
 ## S3 Bucket for CF logging
-resource "aws_s3_bucket" "access_log_bucket" {
-  bucket_prefix = "${var.namespace}-access-log-bucket"
-  acl           = "log-delivery-write"
+module "logging_bucket" {
+  source    = "github.com/officer/terraform-logging-bucket.git"
+  region    = "${var.s3_region}"
+  namespace = "${var.namespace}"
+  tags      = "${var.tags}"
 }
