@@ -1,6 +1,7 @@
 locals {
   
   region        = "<region name>"
+  
   profile_name  = "default"
   namespace     = "simple-cdn"
 

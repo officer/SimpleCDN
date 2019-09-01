@@ -4,6 +4,14 @@ resource "aws_s3_bucket" "bucket" {
   logging {
       target_bucket = "${aws_s3_bucket.logging_bucket.id}"
   }
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["GET", "HEAD"]
+    allowed_origins = ["*"]
+    max_age_seconds = 3600
+  }
+
   tags = "${var.tags}"
   force_destroy = true
 
